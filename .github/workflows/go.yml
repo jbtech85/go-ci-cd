@@ -16,49 +16,85 @@ jobs:
     steps:
       - name: checkout
         uses: actions/checkout@v4
-      - name: echo
-        run: echo Is there an echo in here?
+
+      - name: set up go
+        uses: actions/setup-go@v5.5.0
+        with:
+          go-version: "1.20"
+
+      - name: build go binary
+        run: go build - o main main.go
+        
+      - name: run binary
+        run: ./main
+        
   windows-job:
     name: Windows Job
     runs-on: windows-latest
     steps:
       - name: checkout
         uses: actions/checkout@v4
-      - name: Echo
-        run: Echo I like writing Echo
+
+      - name: set up go
+        uses: actions/setup-go@v5.5.0
+        with:
+          go-version: "1.20"
+
+      - name: build go binary
+        run: go build - o main.exe main.go
+        
+      - name: run binary
+        run: .\main.exe
+        
   mac-job:
     name: Mac Job
     runs-on: macos-latest
     steps:
       - name: checkout
         uses: actions/checkout@v4
-      - name: echo
-        run: echo And now for some zsh
-  last-custom-job:
+
+      - name: set up go
+        uses: actions/setup-go@v5.5.0
+        with:
+          go-version: "1.20"
+
+      - name: build go binary
+        run: go build - o main main.go
+        
+      - name: run binary
+        run: ./main
+        
+  cross-compile:
     name: Last Custom Job
     runs-on: ubuntu-latest
     needs: [ubuntu-job, windows-job, mac-job]
     steps:
       - name: checkout
         uses: actions/checkout@v4
-      - name: status-complete
-        run: echo All three custom jobs have been run
-    
-    
-        
 
-  build:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v4
+      - name: set up go
+        uses: actions/setup-go@v5.5.0
+        with: go-version: "1.20
+      - name: cross-compile for all platforms
+        run: |
+          echo "Cross compiling for all platforms:"
+          GOOS=linux GOARCH=amd64 go build -o main-linux main.go
+          GOOS=windows GOARCH=amd64 go build -o main-windows.exe main.go
+          GOOS=darwin GOARCH=amd64 go build -o main-macos-intel main.go
+          
 
-    - name: Set up Go
-      uses: actions/setup-go@v4
-      with:
-        go-version: '1.20'
+  # out-of-the-box-build:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #   - uses: actions/checkout@v4
 
-    - name: Build
-      run: go build -v ./...
+  #   - name: Set up Go
+  #     uses: actions/setup-go@v4
+  #     with:
+  #       go-version: '1.20'
 
-    - name: Test
-      run: go test -v ./...
+  #   - name: Build
+  #     run: go build -v ./...
+
+  #   - name: Test
+  #     run: go test -v ./...
