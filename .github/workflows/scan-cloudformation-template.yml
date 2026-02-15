@@ -12,3 +12,5 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: AWS Sustainability Scanner GitHub Action
+        uses: aws-actions/sustainability-scanner@v1
