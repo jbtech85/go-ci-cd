@@ -7,7 +7,7 @@ env:
   STEP_MESSAGE: "This value will be overWRITTEN by the step"
   MODE: "development"
 
-  on: [workflow_dispatch]
+  on: [push, workflow_dispatch]
 
   jobs:
     explore_on_ubuntu:
