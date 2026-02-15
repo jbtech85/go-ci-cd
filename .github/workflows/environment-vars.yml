@@ -7,71 +7,71 @@ env:
   STEP_MESSAGE: "This value will be overWRITTEN by the step"
   MODE: "development"
 
-  on: [push, workflow_dispatch]
+on: [workflow_dispatch]
 
-  jobs:
-    explore_on_ubuntu:
-      name: Explore On Ubuntu
-      runs-on: ubuntu-latest
+jobs:
+  explore_on_ubuntu:
+    name: Explore On Ubuntu
+    runs-on: ubuntu-latest
 
-      env:
-        GLOBAL_MESSAGE: "overwrite GLOBAL MESSAGE var"
-        JOB_MESSAGE: "Job-level variable for Ubuntu"
-        PLATFORM: "now ubuntu-latest"
+    env:
+      GLOBAL_MESSAGE: "overwrite GLOBAL MESSAGE var"
+      JOB_MESSAGE: "Job-level variable for Ubuntu"
+      PLATFORM: "now ubuntu-latest"
 
-      steps:
-        - name: default github env variables
-          run: |
-            echo "GITHUB_WORKSPACE  : $GITHUB_WORKSPACE"
-            echo "GITHUB_EVENT_NAME : $GITHUB_EVENT_NAME"
-            echo "GITHUB_ACTOR      : $GITHUB_ACTOR"
-            echo "GITHUB_JOB        : $GITHUB_JOB"
+    steps:
+      - name: default github env variables
+        run: |
+          echo "GITHUB_WORKSPACE  : $GITHUB_WORKSPACE"
+          echo "GITHUB_EVENT_NAME : $GITHUB_EVENT_NAME"
+          echo "GITHUB_ACTOR      : $GITHUB_ACTOR"
+          echo "GITHUB_JOB        : $GITHUB_JOB"
 
-        - name: Job level environment
-          run: |
-            echo "GLOBAL_MESSAGE (shell)  : $GLOBAL_MESSAGE"
-            echo "JOB_MESSAGE    (shell)  : $JOB_MESSAGE"
-            echo "PLATFORM       (shell)  : $PLATFORM"
-            echo "MODE           (shell)  : $MODE"
+      - name: Job level environment
+        run: |
+          echo "GLOBAL_MESSAGE (shell)  : $GLOBAL_MESSAGE"
+          echo "JOB_MESSAGE    (shell)  : $JOB_MESSAGE"
+          echo "PLATFORM       (shell)  : $PLATFORM"
+          echo "MODE           (shell)  : $MODE"
 
-        - name: step level environment w/YAML Interpolation
-          env:
-            GLOBAL_MESSAGE: "step overwrite: ${{ env.MODE }} mode"
-            STEP_MESSAGE: "from step in ${{ env.PLATFORM }}"
-          run: |
-            echo "global_message (YAML interpolated)  : ${{ env.GLOBAL_MESSAGE }}"
-            echo "step_message (YAML interpolated)    : ${{ env.STEP_MESSAGE }}"
-            echo "mode (YAML interpolated)            : ${{ env.MODE }}"
+      - name: step level environment w/YAML Interpolation
+        env:
+          GLOBAL_MESSAGE: "step overwrite: ${{ env.MODE }} mode"
+          STEP_MESSAGE: "from step in ${{ env.PLATFORM }}"
+        run: |
+          echo "global_message (YAML interpolated)  : ${{ env.GLOBAL_MESSAGE }}"
+          echo "step_message (YAML interpolated)    : ${{ env.STEP_MESSAGE }}"
+          echo "mode (YAML interpolated)            : ${{ env.MODE }}"
 
-    explore_on_windows:
-      name: Explore On Windows
-      runs-on: windows-latest
+  explore_on_windows:
+    name: Explore On Windows
+    runs-on: windows-latest
 
-      env:
-        GLOBAL_MESSAGE: "overwrite GLOBAL MESSAGE var"
-        JOB_MESSAGE: "Job-level variable for Ubuntu"
-        PLATFORM: "now ubuntu-latest"
+    env:
+      GLOBAL_MESSAGE: "overwrite GLOBAL MESSAGE var"
+      JOB_MESSAGE: "Job-level variable for Ubuntu"
+      PLATFORM: "now ubuntu-latest"
 
-      steps:
-        - name: default github env variables
-          run: |
-            Write-Output "GITHUB_WORKSPACE  : $Env:GITHUB_WORKSPACE"
-            Write-Output "GITHUB_EVENT_NAME : $Env:GITHUB_EVENT_NAME"
-            Write-Output "GITHUB_ACTOR      : $Env:GITHUB_ACTOR"
-            Write-Output "GITHUB_JOB        : $Env:GITHUB_JOB"
+    steps:
+      - name: default github env variables
+        run: |
+          Write-Output "GITHUB_WORKSPACE  : $Env:GITHUB_WORKSPACE"
+          Write-Output "GITHUB_EVENT_NAME : $Env:GITHUB_EVENT_NAME"
+          Write-Output "GITHUB_ACTOR      : $Env:GITHUB_ACTOR"
+          Write-Output "GITHUB_JOB        : $Env:GITHUB_JOB"
 
-        - name: Job level environment
-          run: |
-            Write-Output "GLOBAL_MESSAGE (shell)  : $Env:GLOBAL_MESSAGE"
-            Write-Output "JOB_MESSAGE    (shell)  : $Env:JOB_MESSAGE"
-            Write-Output "PLATFORM       (shell)  : $Env:PLATFORM"
-            Write-Output "MODE           (shell)  : $Env:MODE"
+      - name: Job level environment
+        run: |
+          Write-Output "GLOBAL_MESSAGE (shell)  : $Env:GLOBAL_MESSAGE"
+          Write-Output "JOB_MESSAGE    (shell)  : $Env:JOB_MESSAGE"
+          Write-Output "PLATFORM       (shell)  : $Env:PLATFORM"
+          Write-Output "MODE           (shell)  : $Env:MODE"
 
-        - name: step level environment w/YAML Interpolation
-          env:
-            GLOBAL_MESSAGE: "step overwrite: ${{ env.MODE }} mode"
-            STEP_MESSAGE: "from step in ${{ env.PLATFORM }}"
-          run: |
-            Write-Output "global_message (YAML interpolated)  : ${{ env.GLOBAL_MESSAGE }}"
-            Write-Output "step_message (YAML interpolated)    : ${{ env.STEP_MESSAGE }}"
-            Write-Output "mode (YAML interpolated)            : ${{ env.MODE }}"
+      - name: step level environment w/YAML Interpolation
+        env:
+          GLOBAL_MESSAGE: "step overwrite: ${{ env.MODE }} mode"
+          STEP_MESSAGE: "from step in ${{ env.PLATFORM }}"
+        run: |
+          Write-Output "global_message (YAML interpolated)  : ${{ env.GLOBAL_MESSAGE }}"
+          Write-Output "step_message (YAML interpolated)    : ${{ env.STEP_MESSAGE }}"
+          Write-Output "mode (YAML interpolated)            : ${{ env.MODE }}"
