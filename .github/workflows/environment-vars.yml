@@ -2,7 +2,7 @@ name: Environment Variables
 
 env:
   GLOBAL_MESSAGE: "The Environment Variable explorer!"
-  JOB_MESSAGE: "this value will be overridden (overwritten? yeah, googled, and it's overwritten because we're replacing existing data) by the job
+  JOB_MESSAGE: "this value will be overridden (overwritten? yeah, googled, and it's overwritten because we're replacing existing data) by the job"
   PLATFORM: "This value will be OVERWRITTEN by the job"
   STEP_MESSAGE: "This value will be overWRITTEN by the step"
   MODE: "development"
